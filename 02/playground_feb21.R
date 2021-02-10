@@ -1,13 +1,24 @@
 library(dplyr) 
-library(data.table)
+library(tidyverse)
+library(readr)
+library(skimr)
+library(DataExplorer)
+library(ggcorrplot)
 
-train <- fread("02/data/train.csv", data.table = F) 
+train <- read_csv("Documents/kaggle-playground/02/data/train.csv") 
 head(train)
 
-test <- fread("02/data/test.csv", data.table = F) 
-head(test)
+test <- read_csv("Documents/kaggle-playground/02/data/test.csv")
+View(test)
 
+train_cat <- train
+
+## EDA
 skim(train)
+
+ggcorrplot(test)
+
+cor(train)
 
 M_train <- cor(train %>% select(!id))
 corrplot(M_train, method = "circle", order = "hclust", addrect = 3)
