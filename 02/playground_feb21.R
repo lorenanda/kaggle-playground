@@ -4,6 +4,7 @@ library(readr)
 library(skimr)
 library(DataExplorer)
 library(ggcorrplot)
+library(corrplot)
 
 train <- read_csv("Documents/kaggle-playground/02/data/train.csv") 
 head(train)
@@ -21,12 +22,9 @@ View(train_cont)
 # distribution of the train features
 skim(train)
 
-ggcorrplot(train_cont)
-
-cor(train)
-
-M_train <- cor(train %>% select(!id))
-corrplot(M_train, method = "circle", order = "hclust", addrect = 3)
+train_cont_corr <- cor(train_cont)
+corrplot(train_cont_corr)
+heatmap(x = train_cont_corr, symm = TRUE)
 
 ##
 y_train <- train %>% pull(target)
